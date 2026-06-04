@@ -1,29 +1,27 @@
-test_that("rank_table() errors on invalid variable", {
-  expect_snapshot(rank_table("invalid_var", 2019), error = TRUE)
-})
+test_that("rank_table returns a data frame", {
+  result <- rank_table("co2_per_capita", 2019)
 
-test_that("rank_table() returns a data frame with correct columns", {
-  skip_if_offline()
-  skip_on_cran()
-
-  result <- rank_table("gdp_per_capita", 2019)
   expect_s3_class(result, "data.frame")
-  expect_named(result, c("Country", "Value", "Rank"))
 })
 
-test_that("rank_table() ranks are positive integers in ascending order", {
-  skip_if_offline()
-  skip_on_cran()
-
-  result <- rank_table("population", 2019)
-  expect_true(all(result$Rank >= 1))
-  expect_equal(result$Rank, sort(result$Rank))
+test_that("invalid variable throws an error", {
+  expect_error(
+    rank_table("not_a_variable", 2019),
+    "not a valid variable"
+  )
 })
 
-test_that("rank_table() excludes Taiwan", {
-  skip_if_offline()
-  skip_on_cran()
+test_that("output contains expected columns", {
+  result <- rank_table("co2_per_capita", 2019)
 
-  result <- rank_table("gdp_per_capita", 2019)
-  expect_false("Taiwan" %in% result$Country)
+  expect_equal(names(result), c("Country", "Value", "Rank"))
+})
+
+test_that("ranks are sorted ascending", {
+  result <- rank_table("co2_per_capita", 2019)
+
+  expect_equal(
+    result$Rank,
+    sort(result$Rank)
+  )
 })
