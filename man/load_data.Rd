@@ -7,10 +7,8 @@
 load_data()
 }
 \value{
-A list is not explicitly returned; the function loads
-\code{plastics}, \code{gdp_data}, \code{population_data}, and
-\code{co2} into the calling environment as side-effects. Consider
-returning a named list for a more functional interface.
+A data frame (\code{meta_set}) joining all four datasets with
+derived columns \code{gdp_per_capita} and \code{plastic_waste_per_capita}.
 }
 \description{
 Downloads plastic waste audit data from the TidyTuesday repository and
