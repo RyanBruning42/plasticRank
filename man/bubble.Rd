@@ -4,11 +4,9 @@
 \alias{bubble}
 \title{Create a bubble plot of environmental indicators}
 \usage{
-bubble(data, x, y, size = "population", transform = "none", year_select = 2019)
+bubble(x, y, size = "population", transform = "none", year_select = 2019)
 }
 \arguments{
-\item{data}{Output from load_data() (list of datasets)}
-
 \item{x}{Character string for x variable}
 
 \item{y}{Character string for y variable}

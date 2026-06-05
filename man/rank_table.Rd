@@ -12,7 +12,12 @@ rank_table(variable, year_select)
 \item{year_select}{Year to filter to. Default is 2019}
 }
 \value{
-a DT table
+A tibble containing country rankings with columns:
+\describe{
+\item{Country}{Country name}
+\item{Value}{Mean value of the selected variable}
+\item{Rank}{Rank based on the selected variable}
+}
 }
 \description{
 Compute the numeric values, \code{rank}, needed to organize table

@@ -5,7 +5,12 @@
 #' @param variable Character string giving the variable of interest for ranking
 #' @param year_select Year to filter to. Default is 2019
 #'
-#' @return a DT table
+#' @return A tibble containing country rankings with columns:
+#' \describe{
+#'   \item{Country}{Country name}
+#'   \item{Value}{Mean value of the selected variable}
+#'   \item{Rank}{Rank based on the selected variable}
+#' }
 #'
 #' @importFrom dplyr filter mutate summarise arrange rename min_rank desc group_by
 #' @importFrom DT datatable formatRound formatStyle styleColorBar

@@ -2,7 +2,7 @@
 #'
 #' Generates a bubble plot comparing two selected variables with optional transformation.
 #'
-#' @param data Output from load_data() (list of datasets)
+#'
 #' @param x Character string for x variable
 #' @param y Character string for y variable
 #' @param size Character string for bubble size variable (default population)
@@ -14,7 +14,7 @@
 #' @importFrom ggplot2 ggplot aes geom_point labs
 #' @export
 
-bubble <- function(data, x, y, size = "population", transform = "none", year_select = 2019) {
+bubble <- function(x, y, size = "population", transform = "none", year_select = 2019) {
 
   apply_transform <- function(v) {
     if (transform == "squared") return(v^2)
@@ -22,6 +22,8 @@ bubble <- function(data, x, y, size = "population", transform = "none", year_sel
     if (transform == "reciprocal") return(1 / v)
     v
   }
+
+  data <- load_data()
 
   plot_data <- data |>
     dplyr::filter(year == year_select) |>
