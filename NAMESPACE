@@ -2,6 +2,7 @@
 
 export(bubble)
 export(calc_correlation)
+export(country_summary)
 export(load_data)
 export(rank_table)
 importFrom(DT,datatable)

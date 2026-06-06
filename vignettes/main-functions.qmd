@@ -29,5 +29,10 @@ bubble(x = "co2_per_capita", y = "gdp_per_capita", size = "population", transfor
 ```{r}
 #Calculates and tests the correlation between two variables
 calc_correlation("co2_per_capita","gdp_per_capita")
-calcca_correlation("population","plastic_waste_per_capita")
+calc_correlation("population","plastic_waste_per_capita")
+```
+
+```{r}
+#Takes in a year and outputs a tibble of countries and relevant variables
+country_summary(2019)
 ```
