@@ -1,9 +1,11 @@
 #' Create a table ranking countries based on variable of interest
 #'
-#' Compute the numeric values, `rank`, needed to organize table
+#' Compute the numeric values, rank, needed to organize table
 #'
 #' @param variable Character string giving the variable of interest for ranking
 #' @param year_select Year to filter to. Default is 2019
+#' @param data A cleaned data frame from clean_data(). If not provided,
+#'   the function loads and cleans the data automatically.
 #'
 #' @return A tibble containing country rankings with columns:
 #' \describe{
@@ -17,52 +19,25 @@
 #'
 #' @export
 
-rank_table <- function(variable, year_select) {
-  valid_variables <- c(
-    "co2_per_capita",
-    "plastic_waste_per_capita",
-    "gdp_per_capita",
-    "population",
-    "grand_total",
-    "gdp"
-  )
-
-  if (!variable %in% valid_variables) {
+rank_table <- function(variable, year_select, data = NULL) {
+  if (!variable %in% valid_variables()) {
     stop(
-      paste0(
-        "'",
-        variable,
-        "' is not a valid variable. Choose one of: ",
-        paste(valid_variables, collapse = ", ")
-      )
+      "'", variable, "' is not a valid variable. Choose one of: ",
+      paste(valid_variables(), collapse = ", ")
     )
   }
 
-  data <- load_data()
+  if (is.null(data)) data <- clean_data(load_data())
 
-  data <- data |>
-    dplyr::filter(year == year_select)
-
-  ranked_table <- data |>
-    filter(
-      !is.na(country.x),
-      !grepl("Taiwan", country.x)
-    ) |>
-    group_by(country.x) |>
+  data |>
+    filter(year == year_select) |>
+    group_by(country) |>
     summarise(
       value = mean(.data[[variable]], na.rm = TRUE),
       .groups = "drop"
     ) |>
     filter(!is.na(value)) |>
-    mutate(
-      rank = min_rank(desc(value))
-    ) |>
+    mutate(rank = min_rank(desc(value))) |>
     arrange(rank) |>
-    rename(
-      Country = country.x,
-      Value = value,
-      Rank = rank
-    )
-
-  ranked_table
+    rename(Country = country, Value = value, Rank = rank)
 }

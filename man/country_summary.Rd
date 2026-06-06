@@ -4,10 +4,13 @@
 \alias{country_summary}
 \title{Summarize country-level indicators}
 \usage{
-country_summary(year_select = 2019)
+country_summary(year_select = 2019, data = NULL)
 }
 \arguments{
 \item{year_select}{Year to filter}
+
+\item{data}{A cleaned data frame from clean_data(). If not provided,
+the function loads and cleans the data automatically.}
 }
 \value{
 A summarized data frame

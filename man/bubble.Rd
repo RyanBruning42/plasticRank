@@ -4,7 +4,14 @@
 \alias{bubble}
 \title{Create a bubble plot of environmental indicators}
 \usage{
-bubble(x, y, size = "population", transform = "none", year_select = 2019)
+bubble(
+  x,
+  y,
+  size = "population",
+  transform = "none",
+  year_select = 2019,
+  data = NULL
+)
 }
 \arguments{
 \item{x}{Character string for x variable}
@@ -14,6 +21,11 @@ bubble(x, y, size = "population", transform = "none", year_select = 2019)
 \item{size}{Character string for bubble size variable (default population)}
 
 \item{transform}{Transformation to apply: "none", "squared", "log", "reciprocal"}
+
+\item{year_select}{Year to filter to. Default is 2019}
+
+\item{data}{A cleaned data frame from clean_data(). If not provided,
+the function loads and cleans the data automatically.}
 }
 \value{
 A ggplot object

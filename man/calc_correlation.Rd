@@ -4,12 +4,15 @@
 \alias{calc_correlation}
 \title{Calculates the correlation coefficient between two variables}
 \usage{
-calc_correlation(x, y)
+calc_correlation(x, y, data = NULL)
 }
 \arguments{
-\item{explanatory}{The explanatory variable}
+\item{x}{The explanatory variable}
 
-\item{response}{The response variable}
+\item{y}{The response variable}
+
+\item{data}{A cleaned data frame from clean_data(). If not provided,
+the function loads and cleans the data automatically.}
 }
 \value{
 A htest object

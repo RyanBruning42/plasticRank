@@ -7,11 +7,11 @@
 load_data()
 }
 \value{
-A data frame (\code{meta_set}) joining all four datasets with
-derived columns \code{gdp_per_capita} and \code{plastic_waste_per_capita}.
+A data frame joining all four datasets with derived columns
+gdp_per_capita and plastic_waste_per_capita.
 }
 \description{
-Downloads plastic waste audit data from the TidyTuesday repository and
-joins it with locally stored GDP, population, and CO2 datasets. Country
-ISO-2 codes are appended using \pkg{countrycode}.
+Loads the full merged dataset from the package's inst/extdata folder.
+The dataset joins plastic waste audit data with locally stored GDP,
+population, and CO2 datasets.
 }

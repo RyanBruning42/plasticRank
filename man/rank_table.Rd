@@ -4,12 +4,15 @@
 \alias{rank_table}
 \title{Create a table ranking countries based on variable of interest}
 \usage{
-rank_table(variable, year_select)
+rank_table(variable, year_select, data = NULL)
 }
 \arguments{
 \item{variable}{Character string giving the variable of interest for ranking}
 
 \item{year_select}{Year to filter to. Default is 2019}
+
+\item{data}{A cleaned data frame from clean_data(). If not provided,
+the function loads and cleans the data automatically.}
 }
 \value{
 A tibble containing country rankings with columns:
@@ -20,5 +23,5 @@ A tibble containing country rankings with columns:
 }
 }
 \description{
-Compute the numeric values, \code{rank}, needed to organize table
+Compute the numeric values, rank, needed to organize table
 }

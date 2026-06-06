@@ -1,8 +1,8 @@
 ---
-title: "main-functions"
+title: "Using plasticRank"
 format: html
 vignette: >
-  %\VignetteIndexEntry{main-functions}
+  %\VignetteIndexEntry{Using plasticRank}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 execute:
@@ -10,29 +10,106 @@ execute:
   comment: "#>"
 ---
 
-```{r}
-#| label: setup
+```{r setup}
 library(plasticRank)
 ```
 
-```{r}
-#Ranking Function by country
-rank_table("co2_per_capita", 2019)
-rank_table("population",2020)
-```
+## Overview
+
+**plasticRank** provides a streamlined pipeline for loading, cleaning,
+summarizing, and visualizing a merged dataset of plastic waste audit data
+(TidyTuesday 2021) joined with GDP, population, and CO2 emissions data.
+The dataset covers 2019–2020 across roughly 80 countries.
+
+The typical workflow is straightforward:
+
+1. Load the raw data
+2. Clean it
+3. Pass the clean dataset into whichever functions you need
+
+---
+
+## 1. Load the data
+
+`load_data()` reads the dataset bundled with the package. No internet
+connection required.
 
 ```{r}
-#Creates a quantitative graph like a bubble plot
-bubble(x = "co2_per_capita", y = "gdp_per_capita", size = "population", transform = "log", year_select = 2020) 
+df <- load_data()
+dim(df)
 ```
 
-```{r}
-#Calculates and tests the correlation between two variables
-calc_correlation("co2_per_capita","gdp_per_capita")
-calc_correlation("population","plastic_waste_per_capita")
-```
+---
+
+## 2. Clean the data
+
+`clean_data()` removes the ~48,000 "EMPTY" audit records that have no country
+attached, drops Taiwan entries from the country code lookup, and removes rows
+where every per-capita column is missing. The result is what you pass to
+everything else.
 
 ```{r}
-#Takes in a year and outputs a tibble of countries and relevant variables
-country_summary(2019)
+df_clean <- clean_data(df)
+dim(df_clean)
+```
+
+---
+
+## 3. Summarize by country
+
+`country_summary()` rolls up all audit entries to one row per country for a
+chosen year.
+
+```{r}
+country_summary(2019, data = df_clean)
+```
+
+---
+
+## 4. Rank countries
+
+`rank_table()` ranks every country from highest to lowest for a chosen variable
+and year.
+
+```{r}
+rank_table("co2_per_capita", 2019, data = df_clean)
+```
+
+---
+
+## 5. Bubble plot
+
+`bubble()` plots two variables against each other, with bubble size showing
+a third. The log transform helps when the data is heavily skewed.
+
+```{r}
+bubble(
+  x           = "gdp_per_capita",
+  y           = "co2_per_capita",
+  size        = "population",
+  transform   = "log",
+  year_select = 2019,
+  data        = df_clean
+)
+```
+
+---
+
+## 6. Bar chart of top countries
+
+`all_ranks()` shows the top countries for a variable as a horizontal bar chart.
+
+```{r}
+all_ranks("plastic_waste_per_capita", year_select = 2019, top_n = 15, data = df_clean)
+```
+
+---
+
+## 7. Statistical analysis
+
+`calc_correlation()` runs a Pearson correlation test between two variables and
+returns the coefficient, p-value, and confidence interval.
+
+```{r}
+calc_correlation("gdp_per_capita", "co2_per_capita", data = df_clean)
 ```

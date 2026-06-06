@@ -1,28 +1,27 @@
 Package: plasticRank
-Title: What the Package Does (One Line, Title Case)
+Title: Rank and Visualize Country-Level Environmental Indicators
 Version: 0.0.0.9000
-Authors@R: 
-    person("Mason", "Souza", , "mpsouza@calpoly.edu", role = c("aut", "cre"))
-    person("Ryan", "Bruning", , "rbruning@calpoly.edu", role = c("aut", "cre"))
-    person("Will", "Mathewson", , "wfmathew@calpoly.edu", role = c("aut", "cre"))
-Description: Put in a country and it will give you the rank of gdp and Co2 showing tables and graphs
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Authors@R: c(
+    person("Mason", "Souza", , "mpsouza@calpoly.edu", role = c("aut", "cre")),
+    person("Ryan", "Bruning", , "rbruning@calpoly.edu", role = "aut"),
+    person("Will", "Mathewson", , "wfmathew@calpoly.edu", role = "aut"))
+Description: Provides functions to load, clean, summarize, and visualize a
+    merged dataset of plastic waste audit data (TidyTuesday 2021) combined
+    with GDP, population, and CO2 emissions data. Countries can be ranked
+    and compared across environmental and economic indicators for 2019-2020.
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 8.0.0
-Suggests: 
+Suggests:
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    quarto
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Imports:
     arrow,
     dplyr,
     ggplot2,
-    countrycode,
-    readr,
-    DT,
-    plotly,
-    tibble
+    DT
